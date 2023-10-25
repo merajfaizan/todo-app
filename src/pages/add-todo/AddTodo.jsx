@@ -5,13 +5,16 @@ const AddTodo = () => {
     const todo = form.todo.value;
 
     try {
-      const res = await fetch("http://localhost:5000/todos", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ todo }),
-      });
+      const res = await fetch(
+        "https://todo-app-server-ruddy.vercel.app/todos",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ todo }),
+        }
+      );
       const data = await res.json();
 
       if (res.ok) {

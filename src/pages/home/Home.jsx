@@ -7,9 +7,12 @@ const Home = () => {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/todos/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `https://todo-app-server-ruddy.vercel.app/todos/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       const data = await res.json();
       if (res.ok) {
         alert(data.message);

@@ -10,7 +10,7 @@ const EditTodo = () => {
     const todo = form.todo.value;
 
     try {
-      const res = await fetch(`http://localhost:5000/todos/${id}`, {
+      const res = await fetch(`https://todo-app-server-ruddy.vercel.app/todos/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

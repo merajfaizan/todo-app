@@ -13,7 +13,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
         loader: async () => {
-          return await fetch("http://localhost:5000/todos");
+          return await fetch("https://todo-app-server-ruddy.vercel.app/todos");
         },
       },
       {
@@ -24,7 +24,9 @@ const router = createBrowserRouter([
         path: "/edit-todo/:id",
         element: <EditTodo />,
         loader: async ({ params }) => {
-          return await fetch(`http://localhost:5000/todos/${params.id}`);
+          return await fetch(
+            `https://todo-app-server-ruddy.vercel.app/todos/${params.id}`
+          );
         },
       },
     ],
