@@ -10,7 +10,7 @@ const Navbar = () => {
       <h1 className="text-5xl font-bold">Todo</h1>
       <ul className="flex justify-center items-center gap-4 text-lg">
         <Link to={"/"}>
-          <li>Todo-list</li>
+          <li>Todo-List</li>
         </Link>
         <Link to={"/add-todo"}>
           <li>Add-Todo</li>
