@@ -3,6 +3,9 @@ import App from "../App";
 import Home from "../pages/home/Home";
 import AddTodo from "../pages/add-todo/AddTodo";
 import EditTodo from "../pages/edit-todo/EditTodo";
+import Register from "../pages/register/Register";
+import Login from "../pages/login/Login";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -12,24 +15,32 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: async () => {
-          return await fetch("https://todo-app-server-ruddy.vercel.app/todos");
-        },
       },
       {
         path: "/add-todo",
-        element: <AddTodo />,
+        element: (
+          <PrivateRoute>
+            <AddTodo />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/edit-todo/:id",
-        element: <EditTodo />,
-        loader: async ({ params }) => {
-          return await fetch(
-            `https://todo-app-server-ruddy.vercel.app/todos/${params.id}`
-          );
-        },
+        element: (
+          <PrivateRoute>
+            <EditTodo />
+          </PrivateRoute>
+        ),
       },
     ],
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 

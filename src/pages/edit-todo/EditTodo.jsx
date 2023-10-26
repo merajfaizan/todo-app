@@ -1,8 +1,21 @@
+/* eslint-disable no-unused-vars */
+import { useContext, useEffect, useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const EditTodo = () => {
   const { id } = useParams();
-  const data = useLoaderData();
+  const { user } = useContext(AuthContext);
+  const [todo, setTodo] = useState("");
+
+  // fetch data from db
+  useEffect(() => {
+    if (user?.uid) {
+      fetch(`https://todo-app-server-ruddy.vercel.app/todo?id=${id}&uid=${user.uid}`)
+        .then((res) => res.json())
+        .then((data) => setTodo(data));
+    }
+  }, [id, user?.uid]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -10,7 +23,7 @@ const EditTodo = () => {
     const todo = form.todo.value;
 
     try {
-      const res = await fetch(`https://todo-app-server-ruddy.vercel.app/todos/${id}`, {
+      const res = await fetch(`https://todo-app-server-ruddy.vercel.app/todos/${id}/${user.uid}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -35,7 +48,7 @@ const EditTodo = () => {
         <input
           className="w-full outline-none"
           required
-          defaultValue={data?.todo}
+          defaultValue={todo?.todo}
           type="text"
           name="todo"
         />

@@ -1,20 +1,22 @@
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthProvider";
+
 const AddTodo = () => {
+  const { user } = useContext(AuthContext);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const todo = form.todo.value;
-
+    const id = Math.round(Math.random() * 10000);
+    const todoData = { id, todo };
     try {
-      const res = await fetch(
-        "https://todo-app-server-ruddy.vercel.app/todos",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ todo }),
-        }
-      );
+      const res = await fetch("https://todo-app-server-ruddy.vercel.app/todo", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ uid: user.uid, todoData }),
+      });
       const data = await res.json();
 
       if (res.ok) {
